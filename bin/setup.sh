@@ -13,12 +13,12 @@ fi
 exists=$(grep -c "^jenkins:" /etc/passwd)
 
 if [ $exists -eq 0 ]; then
-	$HOME/dotfiles/deploy/setup-jenkins-slave.sh
+	$HOME/dotfiles/deploy/setup-jenkins-slave
 else
     echo "The user jenkins already exists"
 fi
 
-$HOME/dotfiles/deploy/setup-docker.sh
+$HOME/dotfiles/bin/setup-docker
 
 fallocate -l 10G /10gb
 
