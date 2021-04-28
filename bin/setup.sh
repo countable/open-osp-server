@@ -18,7 +18,7 @@ else
     echo "The user jenkins already exists"
 fi
 
-$HOME/dotfiles/bin/setup-docker
+$HOME/dotfiles/deploy/setup-docker
 
 fallocate -l 10G /10gb
 
