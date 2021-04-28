@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -euxo
 
 cd $HOME
 
@@ -35,5 +35,6 @@ su jenkins
 
 cd $HOME
 git clone https://github.com/countable/countable-haproxy.git haproxy
+
 cd $HOME/haproxy
 cp ./../haproxy/haproxy.cfg.template $HOME/haproxy/haproxy.cfg
