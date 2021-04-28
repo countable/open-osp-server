@@ -6,23 +6,19 @@ cd $HOME
 
 git clone https://github.com/countable-web/dotfiles.git
 
-cd $HOME/dotfiles/deploy
-
 exists=$(grep -c "^jenkins:" /etc/passwd)
 
 if [ $exists -eq 0 ]; then
-	./setup-jenkins-slave.sh
+	$HOME/dotfiles/deploy/setup-jenkins-slave.sh
 else
     echo "The user jenkins already exists"
 fi
 
-./setup-docker.sh
+$HOME/dotfiles/deploy/setup-docker.sh
 
 fallocate -l 10G /10gb
 
-cd $HOME/dotfiles/bin
-
-./make-swapfile ${1:-60G}
+$HOME/dotfiles/bin/make-swapfile ${1:-60G}
 
 apt install cron
 
@@ -34,5 +30,4 @@ echo "00 00 * * * admin cd /home/jenkins/open-osp-server && ./bin/updater.sh usa
 cd $HOME
 git clone https://github.com/countable/countable-haproxy.git haproxy
 cd $HOME/haproxy
-
 cp ./../haproxy/haproxy.cfg.template $HOME/haproxy/haproxy.cfg
