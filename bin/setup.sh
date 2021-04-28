@@ -4,7 +4,11 @@ set -ex
 
 cd $HOME
 
-git clone https://github.com/countable-web/dotfiles.git
+if [ -z $HOME/dotfiles ]; then
+	git clone https://github.com/countable-web/dotfiles.git
+else
+	echo "Skipping, dotfiles already exists"
+fi
 
 exists=$(grep -c "^jenkins:" /etc/passwd)
 
