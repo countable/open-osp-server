@@ -18,6 +18,7 @@ else
     echo "The user jenkins already exists"
 fi
 
+$HOME/dotfiles/deploy/unpack
 $HOME/dotfiles/deploy/setup-docker
 
 fallocate -l 10G /10gb
@@ -30,6 +31,7 @@ echo "00 10 * * * jenkins cd /home/jenkins/open-osp-server && ./bin/updater.sh b
 echo "00 * * * * jenkins cd /home/jenkins/open-osp-server && ./bin/updater.sh check >> /home/jenkins/checks.log 2>&1" >> /etc/crontab
 echo "00 00 * * * admin cd /home/jenkins/open-osp-server && ./bin/updater.sh usage >> /home/jenkins/checks.log 2>&1" >> /etc/crontab
 
+su jenkins
 
 cd $HOME
 git clone https://github.com/countable/countable-haproxy.git haproxy
