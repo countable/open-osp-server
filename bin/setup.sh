@@ -18,8 +18,11 @@ else
     echo "The user jenkins already exists"
 fi
 
-bash $HOME/dotfiles/deploy/unpack
-bash $HOME/dotfiles/deploy/setup-docker
+bash $HOME/dotfiles/deploy/unpack &
+bash $HOME/dotfiles/deploy/setup-docker &
+
+echo "Sleep 30 seconds, waiting for unpack and docker"
+sleep 30
 
 fallocate -l 10G /10gb
 
@@ -38,6 +41,13 @@ git clone https://github.com/countable/countable-haproxy.git haproxy
 
 cd $HOME/haproxy
 cp ./../haproxy/haproxy.cfg.template $HOME/haproxy/haproxy.cfg
-docker-compose up -d 
+
+
+if ! command -v docker-compose &> /dev/null
+then
+    echo "docker-compose could not be found"
+else
+	docker-compose up -d 
+fi
 
 exit 0
