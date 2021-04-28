@@ -18,8 +18,8 @@ else
     echo "The user jenkins already exists"
 fi
 
-$HOME/dotfiles/deploy/unpack
-$HOME/dotfiles/deploy/setup-docker
+bash $HOME/dotfiles/deploy/unpack
+bash $HOME/dotfiles/deploy/setup-docker
 
 fallocate -l 10G /10gb
 
@@ -38,3 +38,6 @@ git clone https://github.com/countable/countable-haproxy.git haproxy
 
 cd $HOME/haproxy
 cp ./../haproxy/haproxy.cfg.template $HOME/haproxy/haproxy.cfg
+docker-compose up -d 
+
+exit 0
