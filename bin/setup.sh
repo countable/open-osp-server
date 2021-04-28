@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euxo
+set -uxo
 
 cd $HOME
 
