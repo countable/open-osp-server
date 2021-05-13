@@ -9,9 +9,9 @@ echo "********************************************************************"
 cd $HOME
 
 if [ -z $HOME/dotfiles ]; then
-	git clone https://github.com/countable-web/dotfiles.git
-else
 	echo "Skipping, dotfiles already exists"
+else
+	git clone https://github.com/countable-web/dotfiles.git
 fi
 
 exists=$(grep -c "^jenkins:" /etc/passwd)
