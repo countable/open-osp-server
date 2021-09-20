@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ./../.env
+source $HOME/.env
 
 EMAIL_TO="$1"
 FROM_EMAIL="root@aws.openosp.ca"
