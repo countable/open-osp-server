@@ -24,7 +24,9 @@ ssh $2.openosp.ca << EOF
   docker-compose up -d db
   docker-compose exec db apt-get update
   docker-compose exec db apt-get install pv
-  docker-compose exec db pv reach.sql.gz | gunzip | mysql -u root -p${MYSQL_ROOT_PASSWORD} oscar
+  source local.env
+  docker-compose exec db mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "create database oscar"
+  docker-compose exec db bash -c "gunzip < $1.sql.gz | pv | mysql -u root -p${MYSQL_ROOT_PASSWORD} oscar"
 EOF
 
 # alternative way to transfer files, with rsync
