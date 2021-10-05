@@ -17,7 +17,9 @@ docker-compose down
 cd ..
 
 # send everything over.
-tar -I lz4 -cf - $1 | pv | ssh $2.openosp.ca "tar -I lz4 -xf -"
+#tar -I lz4 -cf - $1 | pv | ssh $2.openosp.ca "tar -I lz4 -xf -"
+
+tar -I lz4 -cf - $1 | pv | ssh $2.openosp.ca "cd ${3:-/home/ubuntu} && tar -I lz4 -xf -"
 
 ssh $2.openosp.ca << EOF
   cd workspace/$1
@@ -25,7 +27,7 @@ ssh $2.openosp.ca << EOF
   docker-compose exec db apt-get update
   docker-compose exec db apt-get install pv
   source local.env
-  docker-compose exec db mysql -u root -p${MYSQL_ROOT_PASSWORD} -e "create database oscar"
+  docker-compose exec db mysqldump --all-databases -u root -p${MYSQL_ROOT_PASSWORD} -e "create database oscar"
   docker-compose exec db bash -c "gunzip < $1.sql.gz | pv | mysql -u root -p${MYSQL_ROOT_PASSWORD} oscar"
 EOF
 
