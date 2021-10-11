@@ -10,7 +10,7 @@ docker-compose stop oscar expedius faxws
 
 echo "Zip the DB"
 
-docker-compose exec db mysql -uroot -p${MYSQL_ROOT_PASSWORD} | gzip > $1.sql.gz
+docker-compose exec db mysqldump --all-databases -uroot -p${MYSQL_ROOT_PASSWORD} | gzip > $1.sql.gz
 
 docker-compose down
 
@@ -27,8 +27,7 @@ ssh $2.openosp.ca << EOF
   docker-compose exec db apt-get update
   docker-compose exec db apt-get install pv
   source local.env
-  docker-compose exec db mysqldump --all-databases -u root -p${MYSQL_ROOT_PASSWORD} -e "create database oscar"
-  docker-compose exec db bash -c "gunzip < $1.sql.gz | pv | mysql -u root -p${MYSQL_ROOT_PASSWORD} oscar"
+  docker-compose exec db bash -c "gunzip < $1.sql.gz | pv | mysql -u root -p${MYSQL_ROOT_PASSWORD}"
 EOF
 
 # alternative way to transfer files, with rsync
