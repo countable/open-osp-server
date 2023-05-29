@@ -2,11 +2,7 @@
 
 ALERT=90
 
-<<<<<<< HEAD
-message=$(df -P | awk -v ALERT="$ALERT" '
-=======
 diskmessage=$(df -h | awk -v ALERT="$ALERT" '
->>>>>>> d593123dd235dff3aaaf7553e3aec172bdb7d01d
     NR == 1 {next}
     $1 == "abc:/xyz/pqr" {next}
     $1 == "tmpfs" {next}
